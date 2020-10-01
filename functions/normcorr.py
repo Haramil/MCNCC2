@@ -31,7 +31,7 @@ def patch_mean(images, patch_shape):
     channel_selector = torch.eye(channels).bool()
     weights[~channel_selector] = 0
 
-    result = conv(images, weights, stride=args.stride, padding=padding, bias=None)
+    result = conv(images, weights, stride=1, padding=padding, bias=None)
     return result
 
 
@@ -49,7 +49,7 @@ def channel_normalize(template):
 
 class NCC(torch.nn.Module):
 
-    def __init__(self, template, keep_channels=False, stride):
+    def __init__(self, template, keep_channels=False):
         super().__init__()
 
         self.keep_channels = keep_channels
@@ -69,8 +69,8 @@ class NCC(torch.nn.Module):
         patch_elements = torch.Tensor(template_shape).prod().item()
         self.normalized_template.div_(patch_elements)
 
-    def forward(self, image):
-        result = self.conv_f(image, self.normalized_template, stride, padding=self.padding, bias=None)
+    def forward(self, image, stride):
+        result = self.conv_f(image, self.normalized_template, bias=None, stride=stride, padding=self.padding)
 
         std = patch_std(image, self.normalized_template.shape[1:])
 
@@ -85,7 +85,7 @@ class NCC(torch.nn.Module):
         return result
 
 
-def calc_corr(model, track_l, ref_l, tracks, refs, device, rot, start, end):
+def calc_corr(model, track_l, ref_l, tracks, refs, device, stride, rot, start, end, scorefile):
 
 
     trans = transforms.Compose([
@@ -114,7 +114,7 @@ def calc_corr(model, track_l, ref_l, tracks, refs, device, rot, start, end):
                 image_t = model(trans(image).unsqueeze(0).to(device))
                 image_t2 = image_t[:, :, 3:image_t.shape[2] - 3, 3:image_t.shape[3] - 3].to(device)
 
-                ncc_response = ncc(image_t2)
+                ncc_response = ncc(image_t2, stride)
                 score_mat[x][y] = np.amax(ncc_response.cpu().data.numpy())
 
     else:
@@ -153,5 +153,6 @@ def calc_corr(model, track_l, ref_l, tracks, refs, device, rot, start, end):
 
     elapsed = time.time() - calc_time
     print("elapsed time:", elapsed)
-    np.save("C:\\Users \\User\\virtualtest\MCNCC\\" + args.scorefile, score_mat)
+    #np.save("C:\\Users \\User\\virtualtest\MCNCC2\\" + scorefile, score_mat)
+    np.save(scorefile, score_mat)
     print("score_mat saved")

@@ -25,7 +25,7 @@ from torch import nn
 from functions.cmc import compute_cmc
 from functions.normcorr import patch_mean, patch_std, channel_normalize, NCC, calc_corr
 
-folder = 'C:\\Users\\User\\virtualtest\\MCNCC\\datasets\\FID-300'
+folder = 'C:\\Users\\User\\virtualtest\\MCNCC2\\datasets\\FID-300'
 
 parser = argparse.ArgumentParser(description='take some indiviudal folders from user')
 parser.add_argument('-t', '--tracks', type=str, default='tracks_cropped_Subset', help='define track folder')
@@ -73,7 +73,7 @@ model.to(device)
 model.eval()
 
 
-calc_corr(model, track_l, ref_l, tracks, refs, device, args.rot, args.start, args.end)
+calc_corr(model, track_l, ref_l, tracks, refs, device, args.stride, args.rot, args.start, args.end, args.scorefile)
 
 
 if args.cmc == True:
