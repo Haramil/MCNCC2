@@ -1,24 +1,9 @@
 import os
 from os import path
-import matplotlib
 from matplotlib import pyplot as plt
-from PIL import Image
-import pickle
-import numpy as np
-from tempfile import TemporaryFile
-from tqdm import tqdm
 import argparse
 import logging
-import time
-import pandas as pd
-
 import torch
-from torch.nn import functional as F
-from torch.nn.functional import conv2d
-from torchvision.transforms import ToTensor
-from torch.autograd import Variable
-import torchvision
-from torchvision import transforms
 import torchvision.models as models
 from torch import nn
 
@@ -26,6 +11,7 @@ from functions.cmc import compute_cmc
 from functions.normcorr import patch_mean, patch_std, channel_normalize, NCC, calc_corr
 
 folder = 'C:\\Users\\User\\virtualtest\\MCNCC2\\datasets\\FID-300'
+logging.basicConfig(filename='mcncc.log', level=logging.INFO, format='%(levelname)s:%(message)s')
 
 parser = argparse.ArgumentParser(description='take some indiviudal folders from user')
 parser.add_argument('-t', '--tracks', type=str, default='tracks_cropped_Subset', help='define track folder')
@@ -49,35 +35,35 @@ ref_l = [f for f in os.listdir(refs) if f.endswith('.png')]
 track_l = [f for f in os.listdir(tracks) if f.endswith('.jpg')]
 
 if __name__ == "__main__":
-    print("refs:", args.refs)
-    print("tracks:", args.tracks)
-    print("stride:", args.stride)
-    print("rot:", args.rot)
-    print("start:", args.start)
-    print("end:", args.end)
-    print("cmc:", args.cmc)
-    print("scorefile:", args.scorefile)
-    print("cmc_file:", args.cmc_file)
-    print("label_file:", args.label_file)
-    print("average_pooling:", args.avgpool_bool)
+    logging.info('refs: {}'.format(args.refs))
+    logging.info('refs: {}'.format(args.tracks))
+    logging.info('refs: {}'.format(args.stride))
+    logging.info('refs: {}'.format(args.rot))
+    logging.info('refs: {}'.format(args.start))
+    logging.info('refs: {}'.format(args.end))
+    logging.info('refs: {}'.format(args.cmc))
+    logging.info('refs: {}'.format(args.scorefile))
+    logging.info('refs: {}'.format(args.cmc_file))
+    logging.info('refs: {}'.format(args.label_file))
+    logging.info('refs: {}'.format(args.avgpool_bool))
 
 device = torch.device('cuda:0')
 
 googlenet = models.googlenet(pretrained=True)
 model = nn.Sequential(*list(googlenet.children())[0:4])
 
-if args.avgpool_bool == True:
+if args.avgpool_bool:
     model = nn.Sequential(model, nn.AvgPool2d(2, stride=1))
 
 model.to(device)
 model.eval()
 
 
-calc_corr(model, track_l, ref_l, tracks, refs, device, args.stride, args.rot, args.start, args.end, args.scorefile)
+score_mat = calc_corr(model, track_l, ref_l, tracks, refs, device, args.stride, args.rot, args.start, args.end, args.scorefile)
 
 
-if args.cmc == True:
-    cmc_score = compute_cmc(score_mat)
+if args.cmc:
+    cmc_score = compute_cmc(score_mat, folder, args.label_file)
 
     f, ax = plt.subplots(1)
     plt.plot(cmc_score)

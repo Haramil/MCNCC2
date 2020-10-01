@@ -1,8 +1,12 @@
+import os
+from os import path
 import numpy as np
 import pandas as pd
 
-def compute_cmc(score_mat):
-    test_labels = pd.read_csv(path.join(folder, args.label_file), header=None)
+def compute_cmc(score_mat, folder, label_file):
+
+
+    test_labels = pd.read_csv(path.join(folder, label_file), header=None)
     test_labels = test_labels[:][1].values.tolist()
 
     true_mat = np.zeros((len(test_labels), 38))
