@@ -153,7 +153,6 @@ def calc_corr(model, track_l, ref_l, tracks, refs, device, stride, rot, start, e
 
     elapsed = time.time() - calc_time
     print("elapsed time:", elapsed)
-    #np.save("C:\\Users \\User\\virtualtest\MCNCC2\\" + scorefile, score_mat)
     np.save(scorefile, score_mat)
     print("score_mat saved")
     return score_mat

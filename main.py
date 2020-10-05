@@ -3,16 +3,28 @@ from os import path
 from matplotlib import pyplot as plt
 import argparse
 import logging
-import torch
-import torchvision.models as models
-from torch import nn
+#import torch
+#import torchvision.models as models
+#from torch import nn
 
+from functions.model import create_model
 from functions.cmc import compute_cmc
-from functions.normcorr import patch_mean, patch_std, channel_normalize, NCC, calc_corr
+from functions.normcorr import calc_corr
 
 folder = 'C:\\Users\\User\\virtualtest\\MCNCC2\\datasets\\FID-300'
-logging.basicConfig(filename='mcncc.log', level=logging.INFO, format='%(levelname)s:%(message)s')
 
+# Logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(levelname)s:%(message)s')
+
+file_handler = logging.FileHandler('mcncc.log')
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+
+# Argparser
 parser = argparse.ArgumentParser(description='take some indiviudal folders from user')
 parser.add_argument('-t', '--tracks', type=str, default='tracks_cropped_Subset', help='define track folder')
 parser.add_argument('-rf', '--refs', type=str, default='Subset', help='define reference folder')
@@ -28,6 +40,7 @@ parser.add_argument('-lbltable', '--label_file', type=str, default='Subsetlabels
 
 args = parser.parse_args()
 
+# Paths
 tracks = path.join(folder, args.tracks)
 refs = path.join(folder, args.refs)
 
@@ -35,33 +48,26 @@ ref_l = [f for f in os.listdir(refs) if f.endswith('.png')]
 track_l = [f for f in os.listdir(tracks) if f.endswith('.jpg')]
 
 if __name__ == "__main__":
-    logging.info('refs: {}'.format(args.refs))
-    logging.info('refs: {}'.format(args.tracks))
-    logging.info('refs: {}'.format(args.stride))
-    logging.info('refs: {}'.format(args.rot))
-    logging.info('refs: {}'.format(args.start))
-    logging.info('refs: {}'.format(args.end))
-    logging.info('refs: {}'.format(args.cmc))
-    logging.info('refs: {}'.format(args.scorefile))
-    logging.info('refs: {}'.format(args.cmc_file))
-    logging.info('refs: {}'.format(args.label_file))
-    logging.info('refs: {}'.format(args.avgpool_bool))
+    logger.info('refs: {}'.format(args.refs))
+    logger.info('refs: {}'.format(args.tracks))
+    logger.info('refs: {}'.format(args.stride))
+    logger.info('refs: {}'.format(args.rot))
+    logger.info('refs: {}'.format(args.start))
+    logger.info('refs: {}'.format(args.end))
+    logger.info('refs: {}'.format(args.cmc))
+    logger.info('refs: {}'.format(args.scorefile))
+    logger.info('refs: {}'.format(args.cmc_file))
+    logger.info('refs: {}'.format(args.label_file))
+    logger.info('refs: {}'.format(args.avgpool_bool))
 
-device = torch.device('cuda:0')
+# Model
+device, model = create_model(args.avgpool_bool)
 
-googlenet = models.googlenet(pretrained=True)
-model = nn.Sequential(*list(googlenet.children())[0:4])
-
-if args.avgpool_bool:
-    model = nn.Sequential(model, nn.AvgPool2d(2, stride=1))
-
-model.to(device)
-model.eval()
-
-
+# Calculation of the score matrix
 score_mat = calc_corr(model, track_l, ref_l, tracks, refs, device, args.stride, args.rot, args.start, args.end, args.scorefile)
 
 
+# CMC-score
 if args.cmc:
     cmc_score = compute_cmc(score_mat, folder, args.label_file)
 
@@ -71,4 +77,4 @@ if args.cmc:
     plt.ylabel('cmc-score')
     ax.set_ylim(bottom=0)
     plt.grid(True)
-    f.savefig('C:\\Users\\User\\virtualtest\\MCNCC\\cmc_score_diagram')
+    f.savefig(cmc_score_diagram)
