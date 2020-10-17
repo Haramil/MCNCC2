@@ -18,7 +18,10 @@ You can add you own dataset to your project folder, but keep in mind to provide 
      mcncc_venv\Scripts\activate
 ```
 
-- Install all the required libraries within this environment via the requirements.txt file
+- Install all the required libraries within this environment via the provided requirements.txt file:
+```
+     pip install -r requirements.txt
+```
 
 - Start Skript:
 
