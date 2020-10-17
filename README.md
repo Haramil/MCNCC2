@@ -5,7 +5,13 @@
 - Create a new project-folder, download this repository and extract the files into the new folder
 Optinally you can add you own dataset to your project folder, but keep in mind to provide a label table (csv) in order to plot a cmc diagram.
 
-- Create a virtual environment within this folder with all the required libraries (requirements.txt)
+- Create a virtual environment within this folder:
+
+```
+     python -m venv mcncc_venv
+```
+
+- Install all the required libraries within this environment via the requirements.txt file
 
 - Start Skript:
 
