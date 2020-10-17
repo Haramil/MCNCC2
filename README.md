@@ -13,12 +13,16 @@ You can add you own dataset to your project folder, but keep in mind to provide 
      python -m venv mcncc_venv
 ```
 
+- Within your project folder you can  now activate your virtual environment via:
+```
+     mcncc_venv\Scripts\activate
+```
+
 - Install all the required libraries within this environment via the requirements.txt file
 
 - Start Skript:
 
 Example (strides 2, rotation acticated and cmc-score output)
-
 ```
      python main.py -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder -str 2 -r -cmc
 ```
