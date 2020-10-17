@@ -22,6 +22,8 @@ You can add you own dataset to your project folder, but keep in mind to provide 
 ```
      pip install -r requirements.txt
 ```
+- Additionally you will need to install torch. Go to the website and follow the guidelines:
+https://pytorch.org/
 
 - Start Skript:
 
