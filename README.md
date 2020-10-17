@@ -2,11 +2,13 @@
 
 ## Step by step intruction:
 
-- Create a new project-folder, download this repository and extract the files into the new folder
-Optinally you can add you own dataset to your project folder, but keep in mind to provide a label table (csv) in order to plot a cmc diagram.
+- Download this repository into your desired location via:
+```
+     git clone https://github.com/ErikFaustmann/MCNCC2.git
+```
+You can add you own dataset to your project folder, but keep in mind to provide a label table (csv) in order to plot a cmc diagram.
 
 - Create a virtual environment within this folder:
-
 ```
      python -m venv mcncc_venv
 ```
