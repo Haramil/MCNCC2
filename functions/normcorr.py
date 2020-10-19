@@ -1,21 +1,10 @@
 from tqdm import tqdm
 import numpy as np
-import matplotlib
-from matplotlib import pyplot as plt
-from PIL import Image
-import time
-from os import path
-
 import torch
 from torch.nn import functional as F
-from torch.nn.functional import conv2d
-from torchvision.transforms import ToTensor
-from torch.autograd import Variable
-import torchvision
-from torchvision import transforms
 
 
-def patch_mean(images, patch_shape):
+def patch_mean(images, patch_shape, stride):
     channels, *patch_size = patch_shape
     dimensions = len(patch_size)
     padding = tuple(side // 2 for side in patch_size)
@@ -31,12 +20,12 @@ def patch_mean(images, patch_shape):
     channel_selector = torch.eye(channels).bool()
     weights[~channel_selector] = 0
 
-    result = conv(images, weights, stride=1, padding=padding, bias=None)
+    result = conv(images, weights, stride=stride, padding=padding, bias=None)
     return result
 
 
-def patch_std(image, patch_shape):
-    return (patch_mean(image ** 2, patch_shape) - patch_mean(image, patch_shape) ** 2).sqrt()
+def patch_std(image, patch_shape, stride):
+    return (patch_mean(image ** 2, patch_shape, stride) - patch_mean(image, patch_shape, stride) ** 2).sqrt()
 
 
 def channel_normalize(template):
@@ -72,7 +61,7 @@ class NCC(torch.nn.Module):
     def forward(self, image, stride):
         result = self.conv_f(image, self.normalized_template, bias=None, stride=stride, padding=self.padding)
 
-        std = patch_std(image, self.normalized_template.shape[1:])
+        std = patch_std(image, self.normalized_template.shape[1:], stride)
 
         result.div_(std + 10e-10)
         if not self.keep_channels:
@@ -85,34 +74,20 @@ class NCC(torch.nn.Module):
         return result
 
 
-def calc_corr(model, track_l, ref_l, tracks, refs, device, stride, rot, start, end, scorefile):
-
-
-    trans = transforms.Compose([
-        transforms.Lambda(lambda img: img.convert('RGB')),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225])
-    ])
-
+def calc_corr(track_l, ref_l, ref_rot_l, tracks, refs, refs_rot, device, stride, rot, start, end, scorefile):
 
     score_mat = np.zeros((len(np.sort(track_l)), (len(np.sort(ref_l)))), dtype='float64')
 
-    calc_time = time.time()
 
-    if rot == False:
+    if not rot:
 
         for x, t in enumerate(tqdm(np.sort(track_l))):
 
-            template = Image.open(path.join(tracks, t))
-            template_t = model(trans(template).unsqueeze(0).to(device))[0]
-            template_t2 = template_t[:, 3:template_t.shape[1] - 3, 3:template_t.shape[2] - 3]
+            template_t2 = torch.from_numpy(np.load(tracks +'/'+ t)).to(device)
             ncc = NCC(template_t2)
 
             for y, r in enumerate(np.sort(ref_l)):
-                image = Image.open(path.join(refs, r))
-                image_t = model(trans(image).unsqueeze(0).to(device))
-                image_t2 = image_t[:, :, 3:image_t.shape[2] - 3, 3:image_t.shape[3] - 3].to(device)
+                image_t2 = torch.from_numpy(np.load(refs + '/' + r)).to(device)
 
                 ncc_response = ncc(image_t2, stride)
                 score_mat[x][y] = np.amax(ncc_response.cpu().data.numpy())
@@ -121,27 +96,14 @@ def calc_corr(model, track_l, ref_l, tracks, refs, device, stride, rot, start, e
 
         for x, t in enumerate(tqdm(np.sort(track_l))):
 
-            template = Image.open(path.join(tracks, t))
-            template_t = model(trans(template).unsqueeze(0).to(device))[0]
-            template_t2 = template_t[:, 3:template_t.shape[1] - 3, 3:template_t.shape[2] - 3]
+            template_t2 = torch.from_numpy(np.load(tracks +'/'+ t)).to(device)
             ncc = NCC(template_t2)
 
-            for y, r in enumerate(np.sort(ref_l)):
+            for y, r in enumerate(np.sort(ref_rot_l)):
 
-                img = Image.open(path.join(refs, r))
-                for i in range(start, end):
-                    if i == start:
-                        img2 = img.rotate(i, expand=1, fillcolor='white')
-                        img2 = trans(img2).unsqueeze(0)
-                        img_batch = torch.zeros(abs(start - end), 3, img2.shape[2], img2.shape[3])
-                    else:
-                        img2 = img.rotate(i)
-                        img2 = trans(img2).unsqueeze(0)
-                        img_batch[i][:, :img2[0].shape[1], :img2[0].shape[2]] = img2[0]
+                img_t_batch = torch.from_numpy(np.load(refs_rot + '/' + r)).to(device)
 
-                img_t_batch = model(img_batch.to(device))
-
-                ncc_response = ncc(img_t_batch)
+                ncc_response = ncc(img_t_batch, stride)
 
                 cc = 0
 
@@ -151,8 +113,8 @@ def calc_corr(model, track_l, ref_l, tracks, refs, device, stride, rot, start, e
 
                 score_mat[x][y] = cc
 
-    elapsed = time.time() - calc_time
-    print("elapsed time:", elapsed)
+
+
     np.save(scorefile, score_mat)
-    print("score_mat saved")
+
     return score_mat
