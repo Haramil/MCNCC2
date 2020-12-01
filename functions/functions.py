@@ -50,6 +50,7 @@ def create_model(avgpool_bool, avgp_stride):
     model = nn.Sequential(*list(googlenet.children())[0:4])
 
     if avgpool_bool:
+        print("yep, i am here")
         model = nn.Sequential(model, nn.AvgPool2d(2, stride=avgp_stride))
 
     model.to(device)
