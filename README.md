@@ -1,5 +1,7 @@
 # MCNCC - Multichannel normalized cross correlation
 
+Description:
+
 ## Step by step intruction:
 
 - Download this repository into your desired location via:
@@ -53,6 +55,8 @@ optional arguments:
   -cmc, --cmc  *(calculate cmc)*
   
   -cmcf CMC_FILE, --cmc_file CMC_FILE   *(cmc filename)*
+  
+  -
                         
 
 - after running the program, a .npy file is created storing the correlation matrix (rows: number of tracks in the chosen track folder, columns: number of reference images in the chosen reference image folder)
