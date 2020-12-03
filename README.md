@@ -29,7 +29,7 @@ https://pytorch.org/
 
 Example (strides 2, rotation acticated and cmc-score output)
 ```
-     python main.py -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder -str 2 -r -cmc
+     python main.py -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder
 ```
 
 optional arguments:
@@ -54,34 +54,18 @@ optional arguments:
   
   -cmcf CMC_FILE, --cmc_file CMC_FILE   *(cmc filename)*
                         
-for example
-```
-     python3 mcncc.py -t tracks_cropped -rf references
-```
+
 - after running the program, a .npy file is created storing the correlation matrix (rows: number of tracks in the chosen track folder, columns: number of reference images in the chosen reference image folder)
 
 - use the cmc argument in order to create cmc-plots from your correlation score-files
 
-This function creates for example following graphs:
+This function creates for example following graph:
 ```
-     python drive/My\ Drive/MCNCC/mcncc.py -cmc 
+     python -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder 
 ```
 <img src="cmc_score_diagram.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />    
-```
-     python drive/My\ Drive/MCNCC/mcncc.py -str 4 -cmc
-```
-<img src="cmc_score_diagram2.png"
-     alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" />
-     
-```
-     python drive/My\ Drive/MCNCC/mcncc.py -cmc -avgp
-```
-<img src="cmc_score_average_pool.png"
-     alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" />
-     
+
 - If you don't have access to a GPU you can also use google collaboratory through this link in order to test out the algorithm:
 https://drive.google.com/drive/folders/13txeoZfnQ6rAHktlV3-q9x69nJ-rg8qt?usp=sharing
