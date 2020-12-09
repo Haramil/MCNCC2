@@ -36,27 +36,32 @@ Example (strides 2, rotation acticated and cmc-score output)
 
 optional arguments:
 
-  -h, --help  *(show this help message and exit)*
-  
-  -t TRACKS, --tracks TRACKS  *(define track folder)*
-  
-  -rf REFS, --refs REFS  *(define reference folder)*
-  
-  -str STRIDE, --stride STRIDE     *(stride for convolutions)*
-                        
-  -r, --rot    *(add rotation)*
-  
-  -ris START, --start START   *(rotation interval start)*
-                        
-  -rie END, --end END   *(rotation interval end)*
-  
-  -sf SCOREFILE, --scorefile SCOREFILE  *(scorefilename)*
-  
-  -cmc, --cmc  *(calculate cmc)*
-  
-  -cmcf CMC_FILE, --cmc_file CMC_FILE   *(cmc filename)*
-  
-  -
+  *-h*, --help            show this help message and exit
+  -f FOLDER, --folder FOLDER
+                        define folder containing the dataset
+  -t TRACKS, --tracks TRACKS
+                        define track folder
+  -rf REFS, --refs REFS
+                        define reference folder
+  -str STRIDE, --stride STRIDE
+                        stride for convolutions
+  -avgp, --avgpool_bool
+                        activate average pooling for features
+  -avgp_str AVGP_STRIDE, --avgp_stride AVGP_STRIDE
+                        stride for average_pooling
+  -skf, --skip_feat     skip feature generation
+  -r, --rot             add rotation
+  -ris START, --start START
+                        rotation interval start
+  -rie END, --end END   rotation interval end
+  -sf SCOREFILE, --scorefile SCOREFILE
+                        scorefilename
+  -cmc, --cmc           calculate cmc
+  -cmcf CMC_FILE, --cmc_file CMC_FILE
+                        cmc filename
+  -lbltable LABEL_FILE, --label_file LABEL_FILE
+                        name of the csv. file
+
                         
 
 - after running the program, a .npy file is created storing the correlation matrix (rows: number of tracks in the chosen track folder, columns: number of reference images in the chosen reference image folder)
