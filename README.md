@@ -37,7 +37,7 @@ Example (strides 2, rotation acticated and cmc-score output)
 optional arguments:
 
   *-h*, --help            show this help message and exit
-  -f FOLDER, --folder FOLDER
+  *-f* FOLDER, --folder FOLDER
                         define folder containing the dataset
   -t TRACKS, --tracks TRACKS
                         define track folder
