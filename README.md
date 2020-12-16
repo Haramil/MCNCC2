@@ -40,7 +40,7 @@ optional arguments:
 
   *-h*, --help            show this help message and exit
   
-  *-f* FOLDER, --folder FOLDER
+  *-f* <b>FOLDER</b>, --folder <b>FOLDER</b>
   <br />
   define folder containing the dataset
                         
