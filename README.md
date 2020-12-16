@@ -1,8 +1,10 @@
 # MCNCC - Multichannel normalized cross correlation
 
-Description:
+This script uses mutliple features channels followed subsequently with a calculation of the cross correlation between two images in order to find the pair with the highest chance of having the same source. The original purpose of this script was to find matching shoe impressions from crime scenes and clean reference images from an existing database (FID-300). It is possible to use this script for a variety of tasks with similar purpose, though if you want to create a cmc-diagram you will need a csv-file with the matching pairs (an example is provided in the repository, called Subsetlabels.csv).
 
-## Step by step intruction:
+
+
+## Step by step intruction of the script:
 
 - Download this repository into your desired location via:
 ```
