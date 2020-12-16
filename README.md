@@ -33,14 +33,14 @@ https://pytorch.org/
 
 ### Starting script
 
-Example (strides 2, rotation acticated and cmc-score output)
+Here is an example for the most simple command entry, that will calculate a correlation matrix and store the file within your main project folder (the first argument).
 ```
      python main.py -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder
 ```
 
-optional arguments:
+Optional arguments:
 
-  *-h*, --help<br/>show this help message and exit
+  *-h*, --help<br/>Show this help message and exit
   
   *-f* <b>FOLDER</b>, --folder <b>FOLDER</b><br/>Define the folder in which the main.py file is directly under.
                         
@@ -70,11 +70,6 @@ optional arguments:
                         
   *-lbltable* <b>LABEL_FILE</b>, --label_file <b>LABEL_FILE</b><br/>Name of the csv. file containing the matching pairs of reference images and track images.
 
-                        
-
-- after running the program, a .npy file is created storing the correlation matrix (rows: number of tracks in the chosen track folder, columns: number of reference images in the chosen reference image folder)
-
-- use the cmc argument in order to create cmc-plots from your correlation score-files
 
 ### Examples
 
@@ -94,6 +89,7 @@ Another example with average pooling:
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />   
 
+### Additional remarks
 
-- If you don't have access to a GPU you can also use google collaboratory through this link in order to test out the algorithm:
+If you don't have access to a GPU you can also use google collaboratory through this link in order to test out the algorithm:
 https://drive.google.com/drive/folders/13txeoZfnQ6rAHktlV3-q9x69nJ-rg8qt?usp=sharing
