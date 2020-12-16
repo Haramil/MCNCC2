@@ -41,7 +41,8 @@ optional arguments:
   *-h*, --help            show this help message and exit
   
   *-f* FOLDER, --folder FOLDER
-                        define folder containing the dataset
+  <br />
+  define folder containing the dataset
                         
   -t TRACKS, --tracks TRACKS
                         define track folder
