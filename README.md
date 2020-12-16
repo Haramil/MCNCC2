@@ -40,35 +40,25 @@ Example (strides 2, rotation acticated and cmc-score output)
 
 optional arguments:
 
-  *-h*, --help            
-  <br/>show this help message and exit
+  *-h*, --help<br/>show this help message and exit
   
-  *-f* <b>FOLDER</b>, --folder <b>FOLDER</b>
-  <br/>Define the folder in which the main.py file is directly under.
+  *-f* <b>FOLDER</b>, --folder <b>FOLDER</b><br/>Define the folder in which the main.py file is directly under.
                         
-  *-t* <b>TRACKS</b>, --tracks <b>TRACKS</b>
-  <br/>Define track folder. The image files should be directly within this folder. 
+  *-t* <b>TRACKS</b>, --tracks <b>TRACKS</b><br/>Define track folder. The image files should be directly within this folder. 
                         
-  *-rf* <b>REFS</b>, --refs <b>REFS</b>
-  <br/>Define the reference folder. The image files should be directly within this folder. 
+  *-rf* <b>REFS</b>, --refs <b>REFS</b><br/>Define the reference folder. The image files should be directly within this folder. 
                         
-  *-str* <b>STRIDE</b>, --stride <b>STRIDE</b>
-  <br/>Stride for convolutions when calculating the cross correlation. A bigger stride leads to a decreasing calculation time (around 40% less), but can lead a slightly worse performance regarding the matching of images. The range of recommended strides goes from 1-4 for 200x300 sized images.
+  *-str* <b>STRIDE</b>, --stride <b>STRIDE</b><br/>Stride for convolutions when calculating the cross correlation. A bigger stride leads to a decreasing calculation time (around 40% less), but can lead a slightly worse performance regarding the matching of images. The range of recommended strides goes from 1-4 for 200x300 sized images.
                         
-  *-avgp*, --avgpool_bool
-  <br/>Activate average pooling for feature generation. This can also lead to a decreased calculation time.
+  *-avgp*, --avgpool_bool<br/>Activate average pooling for feature generation. This can also lead to a decreased calculation time.
                         
-  *-avgp_str* <b>AVGP_STRIDE</b>, --avgp_stride <b>AVGP_STRIDE</b>
-  <br/>Stride for average_pooling. The range of recommended strides goes from 1-2 for 200x300 sized images.
+  *-avgp_str* <b>AVGP_STRIDE</b>, --avgp_stride <b>AVGP_STRIDE</b><br/>Stride for average_pooling. The range of recommended strides goes from 1-2 for 200x300 sized images.
                         
-  *-skf*, --skip_feat     
-  <br/>Skip feature generation if you already created features for your dataset. This reduces the overall calculation time for the script to execute.
+  *-skf*, --skip_feat<br/>Skip feature generation if you already created features for your dataset. This reduces the overall calculation time for the script to execute.
   
-  *-r*, --rot             
-  <br/>Enable rotation of track images. The goal is to increase the performance of your matching task, because the rotation of the track image might lead to a better alignment between the track image and the reference image. Keep in mind that if you activate rotation you need to also activate the ris, rie flags, explained below.
+  *-r*, --rot<br/>Enable rotation of track images. The goal is to increase the performance of your matching task, because the rotation of the track image might lead to a better alignment between the track image and the reference image. Keep in mind that if you activate rotation you need to also activate the ris, rie flags, explained below.
   
-  *-ris* <b>START</b>, --start <b>START</b>
-  <br/>Rotation interval start: The starting angle for the track image, starting from a negativ number (for example -10) and zero being the original orientation.
+  *-ris* <b>START</b>, --start <b>START</b><br/>Rotation interval start: The starting angle for the track image, starting from a negativ number (for example -10) and zero being the original orientation.
                         
   *-rie* <b>END</b>, --end <b>END</b><br/>Rotation interval end: The ending angle for the track image, ending at a positive number (for example +10) and zero being the original orientation.
   
