@@ -70,20 +70,15 @@ optional arguments:
   *-ris* <b>START</b>, --start <b>START</b>
   <br/>Rotation interval start: The starting angle for the track image, starting from a negativ number (for example -10) and zero being the original orientation.
                         
-  *-rie* <b>END</b>, --end <b>END</b>  
-  <br/>Rotation interval end: The ending angle for the track image, ending at a positive number (for example +10) and zero being the original orientation.
+  *-rie* <b>END</b>, --end <b>END</b><br/>Rotation interval end: The ending angle for the track image, ending at a positive number (for example +10) and zero being the original orientation.
   
-  *-sf* <b>SCOREFILE</b>, --scorefile <b>SCOREFILE</b>
-  <br/>The name or path (including the name) of the scorefile that is created after the script is finished. If there is no path given, it will be created directly within your main project folder.
+  *-sf* <b>SCOREFILE</b>, --scorefile <b>SCOREFILE</b><br/>The name or path (including the name) of the scorefile that is created after the script is finished. If there is no path given, it will be created directly within your main project folder.
                         
-  *-cmc*, --cmc           
-  <br/>If you set this flag, a cmc calculation will be started. Keep in mind that you need to provide a label file within your project folder. An example is given in this repository named Subsetlabels.csv. 
+  *-cmc*, --cmc<br/>If you set this flag, a cmc calculation will be started. Keep in mind that you need to provide a label file within your project folder. An example is given in this repository named Subsetlabels.csv. 
   
-  *-cmcf* <b>CMC_FILE</b>, --cmc_file <b>CMC_FILE</b>
-  <br/>The name or path (including the name) of the cmc png image that is created after the script is finished. If there is no path given, it will be created directly within your main project folder.
+  *-cmcf* <b>CMC_FILE</b>, --cmc_file <b>CMC_FILE</b><br/>The name or path (including the name) of the cmc png image that is created after the script is finished. If there is no path given, it will be created directly within your main project folder.
                         
-  *-lbltable* <b>LABEL_FILE</b>, --label_file <b>LABEL_FILE</b>
-  <br/>Name of the csv. file containing the matching pairs of reference images and track images.
+  *-lbltable* <b>LABEL_FILE</b>, --label_file <b>LABEL_FILE</b><br/>Name of the csv. file containing the matching pairs of reference images and track images.
 
                         
 
