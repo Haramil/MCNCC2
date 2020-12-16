@@ -6,6 +6,8 @@ This script uses mutliple features channels followed subsequently with a calcula
 
 ## Step by step intruction of the script:
 
+### Set up
+
 - Download this repository into your desired location via:
 ```
      git clone https://github.com/ErikFaustmann/MCNCC2.git
@@ -29,7 +31,7 @@ You can add you own dataset to your project folder, but keep in mind to provide 
 - Additionally you will need to install torch. Go to the website and follow the guidelines:
 https://pytorch.org/
 
-- Start Skript:
+### Starting script
 
 Example (strides 2, rotation acticated and cmc-score output)
 ```
@@ -44,40 +46,45 @@ optional arguments:
   <br />
   define folder containing the dataset
                         
-  -t TRACKS, --tracks TRACKS
-                        define track folder
+  -t <b>TRACKS</b>, --tracks <b>TRACKS</b>
+  <br />
+  define track folder
                         
-  -rf REFS, --refs REFS
-                        define reference folder
+  -rf <b>REFS</b>, --refs <b>REFS</b>
+  <br />define reference folder
                         
-  -str STRIDE, --stride STRIDE
-                        stride for convolutions
+  -str <b>STRIDE</b>, --stride <b>STRIDE</b>
+  <br />stride for convolutions
                         
   -avgp, --avgpool_bool
-                        activate average pooling for features
+  <br/>activate average pooling for features
                         
-  -avgp_str AVGP_STRIDE, --avgp_stride AVGP_STRIDE
-                        stride for average_pooling
+  -avgp_str <b>AVGP_STRIDE</b>, --avgp_stride <b>AVGP_STRIDE</b>
+  <br />stride for average_pooling
                         
-  -skf, --skip_feat     skip feature generation
+  -skf, --skip_feat     
+  <br />skip feature generation
   
-  -r, --rot             add rotation
+  -r, --rot             
+  <br />add rotation
   
-  -ris START, --start START
-                        rotation interval start
+  -ris <b>START</b>, --start <b>START</b>
+  <br />rotation interval start
                         
-  -rie END, --end END   rotation interval end
+  -rie <b>END</b>, --end <b>END</b>  
+  <br />rotation interval end
   
-  -sf SCOREFILE, --scorefile SCOREFILE
-                        scorefilename
+  -sf <b>SCOREFILE</b>, --scorefile <b>SCOREFILE</b>
+  <br />scorefilename
                         
-  -cmc, --cmc           calculate cmc
+  -cmc, --cmc           
+  <br />calculate cmc
   
-  -cmcf CMC_FILE, --cmc_file CMC_FILE
-                        cmc filename
+  -cmcf <b>CMC_FILE</b>, --cmc_file <b>CMC_FILE</b>
+  <br />cmc filename
                         
-  -lbltable LABEL_FILE, --label_file LABEL_FILE
-                        name of the csv. file
+  -lbltable <b>LABEL_FILE</b>, --label_file <b>LABEL_FILE</b>
+  <br />name of the csv. file
 
                         
 
