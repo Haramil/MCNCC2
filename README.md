@@ -85,7 +85,7 @@ Another example with average pooling:
 ```
      python main.py -f path/to/your/project/folder -t path/to/your/track/folder -rf path/to/your/reference/folder -avgp -avgp_str 2 -cmc
 ```
-<img src="cmc_score_diagram.png"
+<img src="cmc_figure_avg_stride2.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />   
 
