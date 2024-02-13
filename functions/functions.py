@@ -44,9 +44,9 @@ def create_directories(folder):
 
 def create_model(avgpool_bool, avgp_stride):
 
-    device = torch.device('cuda:0')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    googlenet = models.googlenet(pretrained=True)
+    googlenet = models.googlenet(weights=models.GoogLeNet_Weights.DEFAULT)
     model = nn.Sequential(*list(googlenet.children())[0:4])
 
     if avgpool_bool:
